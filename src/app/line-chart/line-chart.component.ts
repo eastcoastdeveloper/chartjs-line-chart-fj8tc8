@@ -1,15 +1,15 @@
-import { Component, ViewChild, ElementRef, OnInit } from "@angular/core";
-import { Chart } from "chart.js";
-import * as data from "./data.json"; // Chart Data
-import * as jsonOptions from "./options.json"; // Menu Options
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
+import * as data from './data.json'; // Chart Data
+import * as jsonOptions from './options.json'; // Menu Options
 
 @Component({
-  selector: "line-chart",
-  templateUrl: "./line-chart.component.html",
-  styleUrls: ["./line-chart.component.scss"],
+  selector: 'line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.scss'],
 })
 export class BasicLineChartComponent implements OnInit {
-  chart:any;
+  chart: any;
   chartDataArray: any = []; // Chart Data
   optionsArray: any = []; // Menu Options
   optionsPanel: boolean; // Menu Status
@@ -19,24 +19,24 @@ export class BasicLineChartComponent implements OnInit {
   date: any = new Date();
   month: any = this.date.getMonth();
   months: any = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
-  xAxisVisible:boolean = true;
+  xAxisVisible: boolean = true;
   currentMonth: any = this.months[this.month];
 
-  @ViewChild("yAxis", { static: false }) yAxis: ElementRef;
-  @ViewChild("xGrid", { static: false }) xGrid: ElementRef;
+  @ViewChild('yAxis', { static: false }) yAxis: ElementRef;
+  @ViewChild('xGrid', { static: false }) xGrid: ElementRef;
 
   ngOnInit() {
     // Push JSON to array
@@ -57,22 +57,22 @@ export class BasicLineChartComponent implements OnInit {
   ngAfterViewInit() {
     let data: any,
       options: any,
-      ctx: any = document.getElementById("lineChart") as HTMLElement;
+      ctx: any = document.getElementById('lineChart') as HTMLElement;
 
     data = {
       datasets: [
         {
-          label: "Product A",
-          backgroundColor: "",
-          borderColor: "#02a9f7",
+          label: 'Product A',
+          backgroundColor: '',
+          borderColor: '#02a9f7',
           data: this.chartDataArray[0].line,
           fill: false,
         },
         {
-          label: "Product B",
+          label: 'Product B',
           fill: false,
-          backgroundColor: "",
-          borderColor: "#02577a",
+          backgroundColor: '',
+          borderColor: '#02577a',
           data: this.chartDataArray[1].line,
         },
       ],
@@ -86,47 +86,52 @@ export class BasicLineChartComponent implements OnInit {
       responsive: true,
       layout: {
         padding: {
-          top: 20, right: 20, left: 20, bottom: 0 }
+          top: 20,
+          right: 20,
+          left: 20,
+          bottom: 0,
         },
+      },
       title: {
         display: false,
-        text: ""
+        text: '',
       },
       tooltips: {
-        mode: "index",
-        intersect: false
+        mode: 'index',
+        intersect: false,
       },
       hover: {
-        mode: "nearest",
-        intersect: true
+        mode: 'nearest',
+        intersect: true,
       },
       legend: {
         display: false,
-        position: ""
+        position: '',
       },
       scales: {
         yAxes: [
           {
             ticks: {
-              display: false
+              display: false,
             },
             gridLines: {
-              display: false
+              display: false,
             },
           },
         ],
         xAxes: [
           {
-            ticks: {display: this.xAxisVisible },
+            ticks: { display: this.xAxisVisible },
             gridLines: {
-              display: false},
+              display: false,
+            },
           },
         ],
       },
     };
 
     this.chart = new Chart(ctx, {
-      type: "line",
+      type: 'line',
       data: data,
       options: options,
     });
@@ -139,7 +144,7 @@ export class BasicLineChartComponent implements OnInit {
   // Clear div
   // Inject divs with dynamic styling
   generateXgridLines(lineCount: number, percentage: number) {
-    this.xGrid.nativeElement.innerHTML = "";
+    this.xGrid.nativeElement.innerHTML = '';
     this.selectedCheckbox = lineCount;
     for (var i = 1; i < lineCount; i++) {
       this.xGrid.nativeElement.innerHTML +=
@@ -153,7 +158,7 @@ export class BasicLineChartComponent implements OnInit {
   // Select Checkbox on Line Number
   changeLineCount(xLines: any, e: any) {
     this.generateXgridLines(xLines.value, xLines.percent);
-    this.selectedCheckbox = e.target.parentElement.querySelector("p").innerHTML;
+    this.selectedCheckbox = e.target.parentElement.querySelector('p').innerHTML;
   }
 
   // Toggle options menu
@@ -163,15 +168,15 @@ export class BasicLineChartComponent implements OnInit {
 
   // Select top three menu items
   selectItem(i: any) {
-    if (this.optionsArray[i].item === "Y Axis") {
+    if (this.optionsArray[i].item === 'Y Axis') {
       this.yLabelVisible = !this.yLabelVisible;
     }
-    if (this.optionsArray[i].item === "X Axis Labels") {
+    if (this.optionsArray[i].item === 'X Axis Labels') {
       this.xAxisVisible = !this.xAxisVisible;
       this.chart.options.scales.xAxes[0].display = this.xAxisVisible;
-      this.chart.update()
+      this.chart.update();
     }
-    if (this.optionsArray[i].item === "X Axis Grid Lines") {
+    if (this.optionsArray[i].item === 'X Axis Grid Lines') {
       this.xGridVisible = !this.xGridVisible;
     }
     this.optionsArray[i].checkMark = !this.optionsArray[i].checkMark;
