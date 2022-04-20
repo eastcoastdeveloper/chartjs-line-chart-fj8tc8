@@ -1,10 +1,11 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 .website {
   font: normal 14px sans-serif;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   display: block;
   cursor: pointer;
   background-color: #313b3f;
